@@ -37,6 +37,10 @@ def _data_files():
     yield "share/applications", ["share/applications/solaar.desktop"]
     yield "lib/udev/rules.d", ["rules.d/42-logitech-unify-permissions.rules"]
     yield "share/metainfo", ["share/solaar/io.github.pwr_solaar.solaar.metainfo.xml"]
+    
+    # Daemon service files
+    yield "lib/systemd/system", ["share/systemd/solaar.service"]
+    yield "etc/init.d", ["share/init.d/solaar"]
 
 
 setup(

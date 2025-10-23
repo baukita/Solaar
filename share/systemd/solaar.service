@@ -1,0 +1,39 @@
+[Unit]
+Description=Solaar Logitech Device Manager Daemon
+Documentation=https://pwr-solaar.github.io/Solaar/
+After=network.target graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+User=solaar
+Group=plugdev
+ExecStart=/usr/bin/solaar-daemon --no-fork
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=20
+
+# Security settings
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictRealtime=true
+
+# Allow access to USB devices
+DeviceAllow=/dev/hidraw* rw
+DeviceAllow=/dev/usb* rw
+DevicePolicy=closed
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=solaar-daemon
+
+[Install]
+WantedBy=multi-user.target
